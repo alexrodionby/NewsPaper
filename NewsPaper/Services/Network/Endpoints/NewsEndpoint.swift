@@ -13,7 +13,8 @@ let allCategory = ["business", "entertainment", "general", "health", "science", 
 enum NewsEndpoint: Endpoint {
     
     case getTopHeadlines
-    case findByWord(searchWord: String)
+    case searchByWord(searchWord: String)
+    case searchByCategory(searchCategory: String)
     
     var scheme: String {
         switch self {
@@ -33,8 +34,10 @@ enum NewsEndpoint: Endpoint {
         switch self {
         case .getTopHeadlines:
             return "/v2/top-headlines"
-        case .findByWord(_):
+        case .searchByWord(_):
             return "/v2/everything"
+        case .searchByCategory(searchCategory: _):
+            return "/v2/top-headlines"
         }
     }
     
@@ -44,17 +47,19 @@ enum NewsEndpoint: Endpoint {
             return  [URLQueryItem(name: "country", value: "us"),
                      URLQueryItem(name: "apiKey", value: apiKey)]
             
-        case .findByWord(searchWord: let searchWord):
+        case .searchByWord(searchWord: let searchWord):
             return  [URLQueryItem(name: "q", value: searchWord),
+                     URLQueryItem(name: "apiKey", value: apiKey)]
+        case .searchByCategory(searchCategory: let searchCategory):
+            return  [URLQueryItem(name: "country", value: "us"),
+                     URLQueryItem(name: "category", value: searchCategory),
                      URLQueryItem(name: "apiKey", value: apiKey)]
         }
     }
     
     var method: String {
         switch self {
-        case .getTopHeadlines:
-            return "GET"
-        case .findByWord(searchWord: _):
+        case .getTopHeadlines, .searchByCategory(searchCategory: _), .searchByWord(searchWord: _):
             return "GET"
         }
     }

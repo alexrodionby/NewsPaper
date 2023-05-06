@@ -22,13 +22,24 @@ final class NewsService {
         }
     }
     
-    func search(word: String) async throws -> News {
+    func searchWord(word: String) async throws -> News {
         do {
-            let response = try await HTTPClient().request(endpoint: NewsEndpoint.findByWord(searchWord: word), responseModel: News.self)
+            let response = try await HTTPClient().request(endpoint: NewsEndpoint.searchByWord(searchWord: word), responseModel: News.self)
             return response
         } catch {
             print(error)
             throw error
         }
     }
+    
+    func searchCategory(category: String) async throws -> News {
+        do {
+            let response = try await HTTPClient().request(endpoint: NewsEndpoint.searchByCategory(searchCategory: category), responseModel: News.self)
+            return response
+        } catch {
+            print(error)
+            throw error
+        }
+    }
+    
 }

@@ -24,9 +24,18 @@ class FakeViewController: UIViewController {
 //            }
 //        }
         
+//        Task {
+//            do {
+//                newsAll = try await NewsService.shared.searchWord(word: "bitcoin")
+//                printArticle((newsAll?.articles)!)
+//            } catch {
+//                print("Error =", error.localizedDescription)
+//            }
+//        }
+        
         Task {
             do {
-                newsAll = try await NewsService.shared.search(word: "bitcoin")
+                newsAll = try await NewsService.shared.searchCategory(category: "sports")
                 printArticle((newsAll?.articles)!)
             } catch {
                 print("Error =", error.localizedDescription)
