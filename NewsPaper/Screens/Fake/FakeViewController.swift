@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Фэйковый класс для проверки запросов. Ниже примеры того, как использовать запрос
 class FakeViewController: UIViewController {
     
     var newsAll: News?
@@ -33,9 +34,18 @@ class FakeViewController: UIViewController {
 //            }
 //        }
         
+//        Task {
+//            do {
+//                newsAll = try await NewsService.shared.searchCategory(category: "sports")
+//                printArticle((newsAll?.articles)!)
+//            } catch {
+//                print("Error =", error.localizedDescription)
+//            }
+//        }
+        
         Task {
             do {
-                newsAll = try await NewsService.shared.searchCategory(category: "sports")
+                newsAll = try await NewsService.shared.searchCategories(categories: ["sports", "technology"])
                 printArticle((newsAll?.articles)!)
             } catch {
                 print("Error =", error.localizedDescription)

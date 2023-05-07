@@ -20,8 +20,8 @@ class HTTPClient {
         guard let url = urlComponents.url else {
             throw RequestError.urlNotCreated
         }
-        
-        print("Делаем запрос по", url)
+        // Печатаем ссылку запроса
+        //print("Делаем запрос по", url)
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = endpoint.method
@@ -29,8 +29,8 @@ class HTTPClient {
         do {
             let session = URLSession(configuration: .default)
             let (data, response) = try await session.data(for: urlRequest)
-            
-            print(data.prettyJSON as Any)
+            // Печатаем содержимое джейсона в консоль
+            //print(data.prettyJSON as Any)
             
             if let response = response as? HTTPURLResponse {
                 

@@ -15,6 +15,7 @@ enum NewsEndpoint: Endpoint {
     case getTopHeadlines
     case searchByWord(searchWord: String)
     case searchByCategory(searchCategory: String)
+    case searchByCategories(searchCategories: [String])
     
     var scheme: String {
         switch self {
@@ -32,12 +33,10 @@ enum NewsEndpoint: Endpoint {
     
     var path: String {
         switch self {
-        case .getTopHeadlines:
+        case .getTopHeadlines, .searchByCategory(searchCategory: _), .searchByCategories(searchCategories: _):
             return "/v2/top-headlines"
         case .searchByWord(_):
             return "/v2/everything"
-        case .searchByCategory(searchCategory: _):
-            return "/v2/top-headlines"
         }
     }
     
@@ -50,16 +49,24 @@ enum NewsEndpoint: Endpoint {
         case .searchByWord(searchWord: let searchWord):
             return  [URLQueryItem(name: "q", value: searchWord),
                      URLQueryItem(name: "apiKey", value: apiKey)]
+            
         case .searchByCategory(searchCategory: let searchCategory):
             return  [URLQueryItem(name: "country", value: "us"),
                      URLQueryItem(name: "category", value: searchCategory),
                      URLQueryItem(name: "apiKey", value: apiKey)]
+            
+        case .searchByCategories(searchCategories: let searchCategories):
+            var queryItems = [URLQueryItem]()
+            queryItems.append(URLQueryItem(name: "country", value: "us"))
+            queryItems.append(contentsOf: searchCategories.map { URLQueryItem(name: "category", value: $0) })
+            queryItems.append(URLQueryItem(name: "apiKey", value: apiKey))
+            return queryItems
         }
     }
     
     var method: String {
         switch self {
-        case .getTopHeadlines, .searchByCategory(searchCategory: _), .searchByWord(searchWord: _):
+        case .getTopHeadlines, .searchByCategory(searchCategory: _), .searchByWord(searchWord: _), .searchByCategories(searchCategories: _):
             return "GET"
         }
     }
