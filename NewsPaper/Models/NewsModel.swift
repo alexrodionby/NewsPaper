@@ -23,7 +23,7 @@ struct Article: Codable {
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
-    let favorites: Bool?
+    let favorites: Bool? // Добавил параметр для добавления статьи в избранное
 }
 
 // MARK: - Source

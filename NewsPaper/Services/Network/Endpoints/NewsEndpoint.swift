@@ -7,7 +7,10 @@
 
 import Foundation
 
+// Забираем значение ключа из info.pls Там его меняйте на свой
 let apiKey = Bundle.main.object(forInfoDictionaryKey: "ApiKey") as? String
+
+// Все доступные категории апи. На главном экране добавляем Random для рандомных новостей
 let allCategory = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
 
 enum NewsEndpoint: Endpoint {
