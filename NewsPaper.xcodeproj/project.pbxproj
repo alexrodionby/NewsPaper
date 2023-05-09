@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85B34BEC2A090E7100851415 /* DetailNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B34BEB2A090E7100851415 /* DetailNewsViewController.swift */; };
 		A14996EC2A0688F100794415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14996EB2A0688F100794415 /* AppDelegate.swift */; };
 		A14996EE2A0688F100794415 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14996ED2A0688F100794415 /* SceneDelegate.swift */; };
 		A14996F52A0688F200794415 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A14996F42A0688F200794415 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		85B34BEB2A090E7100851415 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
 		A14996E82A0688F100794415 /* NewsPaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsPaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A14996EB2A0688F100794415 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A14996ED2A0688F100794415 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		85B34BEA2A09008A00851415 /* DetailNews */ = {
+			isa = PBXGroup;
+			children = (
+				85B34BEB2A090E7100851415 /* DetailNewsViewController.swift */,
+			);
+			path = DetailNews;
+			sourceTree = "<group>";
+		};
 		A14996DF2A0688F100794415 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 		A14997012A06928200794415 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				85B34BEA2A09008A00851415 /* DetailNews */,
 				A1EF0F222A0816AC0057BDBB /* TabBar */,
 				A1EF0F232A0816DB0057BDBB /* Browse */,
 				A1EF0F242A0817120057BDBB /* Categories */,
@@ -318,6 +329,7 @@
 				A14997092A0695EC00794415 /* FakeViewController.swift in Sources */,
 				A1EF0F2B2A08178F0057BDBB /* BrowseViewController.swift in Sources */,
 				A14997192A06A45F00794415 /* HTTPClient.swift in Sources */,
+				85B34BEC2A090E7100851415 /* DetailNewsViewController.swift in Sources */,
 				A14996EC2A0688F100794415 /* AppDelegate.swift in Sources */,
 				A14997132A06A1C000794415 /* Endpoint.swift in Sources */,
 				A14996EE2A0688F100794415 /* SceneDelegate.swift in Sources */,

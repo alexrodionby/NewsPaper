@@ -16,14 +16,14 @@ class FakeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .green
         
-//        Task {
-//            do {
-//                newsAll = try await NewsService.shared.topHeadlines()
-//                printArticle((newsAll?.articles)!)
-//            } catch {
-//                print("Error =", error.localizedDescription)
-//            }
-//        }
+        Task {
+            do {
+                newsAll = try await NewsService.shared.topHeadlines()
+                printArticle((newsAll?.articles)!)
+            } catch {
+                print("Error =", error.localizedDescription)
+            }
+        }
         
 //        Task {
 //            do {
@@ -43,14 +43,14 @@ class FakeViewController: UIViewController {
 //            }
 //        }
         
-        Task {
-            do {
-                newsAll = try await NewsService.shared.searchCategories(categories: ["sports", "technology"])
-                printArticle((newsAll?.articles)!)
-            } catch {
-                print("Error =", error.localizedDescription)
-            }
-        }
+//        Task {
+//            do {
+//                newsAll = try await NewsService.shared.searchCategories(categories: ["sports", "technology"])
+//                printArticle((newsAll?.articles)!)
+//            } catch {
+//                print("Error =", error.localizedDescription)
+//            }
+//        }
        
     }
     
