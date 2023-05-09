@@ -26,6 +26,7 @@
 		A1EF0F2F2A0817B00057BDBB /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F2E2A0817B00057BDBB /* BookmarksViewController.swift */; };
 		A1EF0F312A0817C90057BDBB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F302A0817C90057BDBB /* ProfileViewController.swift */; };
 		A1EF0F332A0818B50057BDBB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F322A0818B50057BDBB /* TabBarViewController.swift */; };
+		A1EF0F352A084B850057BDBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		A1EF0F2E2A0817B00057BDBB /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		A1EF0F302A0817C90057BDBB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A1EF0F322A0818B50057BDBB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				A1EF0F2A2A08178F0057BDBB /* BrowseViewController.swift */,
+				A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1EF0F352A084B850057BDBB /* CategoryCollectionViewCell.swift in Sources */,
 				A1EF0F2F2A0817B00057BDBB /* BookmarksViewController.swift in Sources */,
 				A14997172A06A35100794415 /* RequestError.swift in Sources */,
 				A149971B2A06A84200794415 /* NewsEndpoint.swift in Sources */,

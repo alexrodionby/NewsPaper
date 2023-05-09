@@ -11,7 +11,8 @@ import UIKit
 class FakeViewController: UIViewController {
     
     var newsAll: News?
-
+    var article: Article?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
@@ -51,6 +52,9 @@ class FakeViewController: UIViewController {
                 print("Error =", error.localizedDescription)
             }
         }
+        
+        article = newsAll?.articles![1]
+        
        
     }
     
