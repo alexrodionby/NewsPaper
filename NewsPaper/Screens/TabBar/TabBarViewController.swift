@@ -43,7 +43,5 @@ class TabBarViewController: UITabBarController {
         selectedIndex = 0
         tabBar.backgroundColor = .white
         tabBar.tintColor = UIColor(named: "purplePrimary")
-        
     }
-    
 }
