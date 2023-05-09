@@ -16,7 +16,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let view = UIView()
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -25,8 +24,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 1
-        //label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -46,7 +44,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
-    
     private func setupUI() {
         contentView.addSubview(categoryCellView)
         categoryCellView.addSubview(categoryTitleLabel)
@@ -61,46 +58,13 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         
         updateSelectionAppearance()
     }
-
-
-    
-    
-    //    private func setupUI() {
-    //        contentView.addSubview(categoryCellView)
-    //        categoryCellView.addSubview(categoryTitleLabel)
-    //
-    //        categoryCellView.snp.makeConstraints {
-    ////            $0.top.equalTo(contentView.snp.top)
-    ////            $0.leading.equalTo(contentView.snp.leading)
-    ////            $0.trailing.equalTo(contentView.snp.trailing)
-    ////            $0.bottom.equalTo(contentView.snp.bottom)
-    //            $0.edges.equalToSuperview()
-    //        }
-    //
-    //        categoryTitleLabel.snp.makeConstraints {
-    //            $0.center.equalTo(categoryCellView.snp.center)
-    //        }
-    //
-    ////        NSLayoutConstraint.activate([
-    ////            categoryCellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-    ////            categoryCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-    ////            categoryCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-    ////            categoryCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-    ////
-    ////            categoryTitleLabel.centerXAnchor.constraint(equalTo: categoryCellView.centerXAnchor),
-    ////            categoryTitleLabel.centerYAnchor.constraint(equalTo: categoryCellView.centerYAnchor)
-    ////        ])
-    //
-    //        updateSelectionAppearance()
-    //    }
     
     private func updateSelectionAppearance() {
-        categoryCellView.backgroundColor = isSelected ? .blue : .gray
-        categoryTitleLabel.textColor = isSelected ? .white : .black
+        categoryCellView.backgroundColor = isSelected ? UIColor(named: "purplePrimary") : .systemGray6
+        categoryTitleLabel.textColor = isSelected ? .white : .gray
     }
     
     func configureCell(title: String) {
         categoryTitleLabel.text = title
     }
-    
 }

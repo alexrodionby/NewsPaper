@@ -10,11 +10,12 @@ import SnapKit
 
 class BrowseViewController: UIViewController, UISearchBarDelegate {
     
-    let allCategory = ["random", "business", "entertainment", "general", "health", "science", "sports", "technology"]
+    let allCategory = ["Random", "Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray3
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     
@@ -39,6 +40,12 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
     
     private let searchBarView = UISearchBar()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let firstIndexPath = IndexPath(item: 0, section: 0)
+        categoryCollectionView.selectItem(at: firstIndexPath, animated: false, scrollPosition: [])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,64 +53,52 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         searchBarView.placeholder = "Search"
         searchBarView.backgroundImage = UIImage()
         
-        setupView()
-        setupConstraints()
-        setupCollectionView()
-        
-        title = "Browse"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-    }
-    
-    private func setupCollectionView() {
-        view.addSubview(categoryCollectionView)
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         
-        categoryCollectionView.snp.makeConstraints {
-            $0.top.equalTo(searchBarView.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.height.equalTo(50)
-        }
+        setupView()
+        setupConstraints()
         
-        //          NSLayoutConstraint.activate([
-        //              pillsCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-        //              pillsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        //              pillsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        //              pillsCollectionView.heightAnchor.constraint(equalToConstant: 50) // Установите желаемую высоту коллекции
-        //          ])
+        title = "Browse"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupView() {
-        view.addSubview(scrollView)
+        view.backgroundColor = .white
         view.addSubview(mainLabel)
         view.addSubview(searchBarView)
+        view.addSubview(scrollView)
+        view.addSubview(categoryCollectionView)
     }
     
     private func setupConstraints() {
         
-        scrollView.snp.makeConstraints {
-            $0.top.left.bottom.right.equalToSuperview()
-        }
-        
         mainLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(17)
             $0.top.equalToSuperview().offset(145)
         }
         
         searchBarView.snp.makeConstraints {
-            $0.top.equalTo(mainLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.top.equalTo(mainLabel.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().offset(8)
+            $0.trailing.equalToSuperview().inset(8)
         }
         
+        categoryCollectionView.snp.makeConstraints {
+            $0.top.equalTo(searchBarView.snp.bottom).offset(8)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().inset(10)
+            $0.height.equalTo(40)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(categoryCollectionView.snp.bottom).offset(15)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
-    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
-            // Выполните действия, связанные с поиском, на основе введенного текста
             print("Выполняется поиск: \(searchText)")
             searchBar.resignFirstResponder()
         }
@@ -111,7 +106,7 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
 }
 
 extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCategory = allCategory[indexPath.item]
         print("Нажали на категорию =", selectedCategory)
@@ -130,10 +125,7 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = allCategory[indexPath.row]
-        let cellWidth = text.size(withAttributes:[.font: UIFont.systemFont(ofSize: 14.0)]).width + 40.0
-     //   collectionView.collectionViewLayout.invalidateLayout()
-        return CGSize(width: cellWidth, height: 50)
+        let cellWidth = text.size(withAttributes:[.font: UIFont.systemFont(ofSize: 14.0)]).width + 30.0
+        return CGSize(width: cellWidth, height: 40)
     }
-    
-    
 }
