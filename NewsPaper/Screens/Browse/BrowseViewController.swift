@@ -11,15 +11,10 @@ import SnapKit
 class BrowseViewController: UIViewController, UISearchBarDelegate {
     
     let allCategory = ["Random", "Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
-    var articleForCategory = ["1", "2", "3", "4", "5"]
-    var articleForFavoriteCategories = ["1", "2", "3", "4", "5", "6", "7", "8"]
-    
-    private let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.backgroundColor = .systemGray3
-        view.showsVerticalScrollIndicator = false
-        return view
-    }()
+    var articleForCategory: [Article] = []
+    var articleForFavoriteCategories: [Article] = []
+    // Любимые категории надо загрузить из юзердефаулт
+    var favoritCategories = ["sports", "technology"]
     
     private let mainLabel: UILabel = {
         let label = UILabel()
@@ -58,7 +53,7 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-       // tableView.backgroundColor = .green
+        //tableView.backgroundColor = .green
         return tableView
     }()
     
@@ -68,6 +63,27 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         super.viewDidAppear(animated)
         let firstIndexPath = IndexPath(item: 0, section: 0)
         categoryCollectionView.selectItem(at: firstIndexPath, animated: false, scrollPosition: [])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        Task {
+            do {
+                articleForCategory = try await NewsService.shared.topHeadlines().articles ?? []
+                mainCollectionView.reloadData()
+            } catch {
+                print("Error =", error.localizedDescription)
+            }
+        }
+        
+        Task {
+            do {
+                articleForFavoriteCategories = try await NewsService.shared.searchCategories(categories: favoritCategories).articles ?? []
+                mainTableView.reloadData()
+            } catch {
+                print("Error =", error.localizedDescription)
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -99,9 +115,6 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         view.addSubview(mainLabel)
         view.addSubview(searchBarView)
         view.addSubview(categoryCollectionView)
-    //    view.addSubview(scrollView)
-//        scrollView.addSubview(mainCollectionView)
-//        scrollView.addSubview(mainTableView)
         view.addSubview(mainCollectionView)
         view.addSubview(mainTableView)
     }
@@ -125,43 +138,19 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
             $0.trailing.equalToSuperview().inset(10)
             $0.height.equalTo(40)
         }
+        
         mainCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(categoryCollectionView.snp.bottom)
-     //       $0.width.equalTo(scrollView)
             $0.height.equalTo(250)
         }
+        
         mainTableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(mainCollectionView.snp.bottom)
             $0.bottom.equalToSuperview()
         }
         
-//        scrollView.snp.makeConstraints {
-//            $0.top.equalTo(categoryCollectionView.snp.bottom)
-//            $0.leading.trailing.bottom.equalToSuperview()
-//        }
-        
-//        mainCollectionView.snp.makeConstraints {
-//            $0.leading.trailing.equalToSuperview()
-//            $0.top.bottom.equalTo(scrollView)
-//            $0.width.equalTo(scrollView)
-//            $0.height.equalTo(250)
-//        }
-//
-//        mainTableView.snp.makeConstraints {
-//         //   $0.edges.equalToSuperview().inset(100)
-//            $0.left.right.equalToSuperview()
-//            $0.top.equalToSuperview()
-//            $0.bottom.equalToSuperview()
-//        }
-        
-//        mainTableView.snp.makeConstraints {
-//            $0.top.equalTo(mainCollectionView.snp.bottom).offset(10).priority(.high)
-//            $0.top.greaterThanOrEqualTo(categoryCollectionView.snp.bottom).offset(10).priority(.low)
-//            $0.leading.trailing.bottom.equalTo(scrollView)
-//        }
-
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -183,9 +172,32 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if collectionView == categoryCollectionView {
             let selectedCategory = allCategory[indexPath.item]
             print("Нажали на категорию =", selectedCategory)
+            if selectedCategory == "Random" {
+                Task {
+                    do {
+                        articleForCategory = try await NewsService.shared.topHeadlines().articles ?? []
+                        mainCollectionView.reloadData()
+                    } catch {
+                        print("Error =", error.localizedDescription)
+                    }
+                }
+            } else {
+                Task {
+                    do {
+                        articleForCategory = try await NewsService.shared.searchCategory(category: selectedCategory.lowercased()).articles ?? []
+                        mainCollectionView.reloadData()
+                    } catch {
+                        print("Error =", error.localizedDescription)
+                    }
+                }
+            }
         } else {
             let selectedCategory = articleForCategory[indexPath.item]
             print("Нажали на главную ячейку =", selectedCategory)
+            let article = articleForCategory[indexPath.item]
+            let vc = DetailNewsViewController()
+            vc.article = article
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -205,7 +217,8 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCollectionViewCell
-            
+            let article = articleForCategory[indexPath.item]
+            cell.configureCell(article: article)
             return cell
         }
         
@@ -232,7 +245,7 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         return UIEdgeInsets.zero
     }
-
+    
 }
 
 extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
@@ -242,15 +255,18 @@ extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableCell", for: indexPath) as! MainTableViewCell
-        let color = UIColor.blue // Замените на нужный цвет
-        cell.configureCell(color: color)
+        let article = articleForFavoriteCategories[indexPath.item]
+        cell.configureCell(article: article)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           let selectedArticle = articleForFavoriteCategories[indexPath.row]
-           print("Нажали на ячейку таблицы =", selectedArticle)
-
-       }
+        let selectedArticle = articleForFavoriteCategories[indexPath.row]
+        print("Нажали на ячейку таблицы =", selectedArticle)
+        let article = articleForFavoriteCategories[indexPath.item]
+        let vc = DetailNewsViewController()
+        vc.article = article
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
