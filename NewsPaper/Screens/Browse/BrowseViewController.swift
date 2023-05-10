@@ -11,6 +11,8 @@ import SnapKit
 class BrowseViewController: UIViewController, UISearchBarDelegate {
     
     let allCategory = ["Random", "Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
+    var articleForCategory = ["1", "2", "3", "4", "5"]
+    var articleForFavoriteCategories = ["1", "2", "3", "4", "5", "6", "7", "8"]
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -38,6 +40,28 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         return collectionView
     }()
     
+    private let mainCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "MainCell")
+        collectionView.allowsSelection = true
+        collectionView.showsHorizontalScrollIndicator = false
+        //collectionView.backgroundColor = .red
+        return collectionView
+    }()
+    
+    private let mainTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "MainTableCell")
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+       // tableView.backgroundColor = .green
+        return tableView
+    }()
+    
     private let searchBarView = UISearchBar()
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,9 +76,16 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         searchBarView.delegate = self
         searchBarView.placeholder = "Search"
         searchBarView.backgroundImage = UIImage()
+        searchBarView.showsCancelButton = true
         
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
+        
+        mainCollectionView.delegate = self
+        mainCollectionView.dataSource = self
+        
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
         
         setupView()
         setupConstraints()
@@ -67,8 +98,12 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         view.backgroundColor = .white
         view.addSubview(mainLabel)
         view.addSubview(searchBarView)
-        view.addSubview(scrollView)
         view.addSubview(categoryCollectionView)
+    //    view.addSubview(scrollView)
+//        scrollView.addSubview(mainCollectionView)
+//        scrollView.addSubview(mainTableView)
+        view.addSubview(mainCollectionView)
+        view.addSubview(mainTableView)
     }
     
     private func setupConstraints() {
@@ -90,11 +125,43 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
             $0.trailing.equalToSuperview().inset(10)
             $0.height.equalTo(40)
         }
-        
-        scrollView.snp.makeConstraints {
-            $0.top.equalTo(categoryCollectionView.snp.bottom).offset(15)
-            $0.leading.trailing.bottom.equalToSuperview()
+        mainCollectionView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(categoryCollectionView.snp.bottom)
+     //       $0.width.equalTo(scrollView)
+            $0.height.equalTo(250)
         }
+        mainTableView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(mainCollectionView.snp.bottom)
+            $0.bottom.equalToSuperview()
+        }
+        
+//        scrollView.snp.makeConstraints {
+//            $0.top.equalTo(categoryCollectionView.snp.bottom)
+//            $0.leading.trailing.bottom.equalToSuperview()
+//        }
+        
+//        mainCollectionView.snp.makeConstraints {
+//            $0.leading.trailing.equalToSuperview()
+//            $0.top.bottom.equalTo(scrollView)
+//            $0.width.equalTo(scrollView)
+//            $0.height.equalTo(250)
+//        }
+//
+//        mainTableView.snp.makeConstraints {
+//         //   $0.edges.equalToSuperview().inset(100)
+//            $0.left.right.equalToSuperview()
+//            $0.top.equalToSuperview()
+//            $0.bottom.equalToSuperview()
+//        }
+        
+//        mainTableView.snp.makeConstraints {
+//            $0.top.equalTo(mainCollectionView.snp.bottom).offset(10).priority(.high)
+//            $0.top.greaterThanOrEqualTo(categoryCollectionView.snp.bottom).offset(10).priority(.low)
+//            $0.leading.trailing.bottom.equalTo(scrollView)
+//        }
+
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -103,29 +170,87 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
             searchBar.resignFirstResponder()
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        print("Нажали отмена в поиске")
+    }
 }
 
 extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCategory = allCategory[indexPath.item]
-        print("Нажали на категорию =", selectedCategory)
+        if collectionView == categoryCollectionView {
+            let selectedCategory = allCategory[indexPath.item]
+            print("Нажали на категорию =", selectedCategory)
+        } else {
+            let selectedCategory = articleForCategory[indexPath.item]
+            print("Нажали на главную ячейку =", selectedCategory)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allCategory.count
+        if collectionView == categoryCollectionView {
+            return allCategory.count
+        } else {
+            return articleForCategory.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
-        let category = allCategory[indexPath.item]
-        cell.configureCell(title: category)
-        return cell
+        if collectionView == categoryCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCollectionViewCell
+            let category = allCategory[indexPath.item]
+            cell.configureCell(title: category)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCollectionViewCell
+            
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = allCategory[indexPath.row]
-        let cellWidth = text.size(withAttributes:[.font: UIFont.systemFont(ofSize: 14.0)]).width + 30.0
-        return CGSize(width: cellWidth, height: 40)
+        if collectionView == categoryCollectionView {
+            let text = allCategory[indexPath.row]
+            let cellWidth = text.size(withAttributes:[.font: UIFont.systemFont(ofSize: 14.0)]).width + 30.0
+            return CGSize(width: cellWidth, height: 40)
+        } else {
+            return CGSize(width: 200, height: 200)
+        }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == mainCollectionView && section == 0 {
+            let leftInset: CGFloat = 10
+            let rightInset: CGFloat = 10
+            let itemCount = collectionView.numberOfItems(inSection: section)
+            if itemCount > 0 {
+                return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+            }
+        }
+        return UIEdgeInsets.zero
+    }
+
+}
+
+extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        articleForFavoriteCategories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableCell", for: indexPath) as! MainTableViewCell
+        let color = UIColor.blue // Замените на нужный цвет
+        cell.configureCell(color: color)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           let selectedArticle = articleForFavoriteCategories[indexPath.row]
+           print("Нажали на ячейку таблицы =", selectedArticle)
+
+       }
+    
 }

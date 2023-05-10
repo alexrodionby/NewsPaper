@@ -30,6 +30,8 @@
 		A1EF0F312A0817C90057BDBB /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F302A0817C90057BDBB /* ProfileViewController.swift */; };
 		A1EF0F332A0818B50057BDBB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F322A0818B50057BDBB /* TabBarViewController.swift */; };
 		A1EF0F352A084B850057BDBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */; };
+		A1EF0F372A0AB3800057BDBB /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F362A0AB3800057BDBB /* MainCollectionViewCell.swift */; };
+		A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F382A0ACAFF0057BDBB /* MainTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		A1EF0F302A0817C90057BDBB /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A1EF0F322A0818B50057BDBB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1EF0F362A0AB3800057BDBB /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1EF0F382A0ACAFF0057BDBB /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +225,9 @@
 			isa = PBXGroup;
 			children = (
 				A1EF0F2A2A08178F0057BDBB /* BrowseViewController.swift */,
+				A1EF0F362A0AB3800057BDBB /* MainCollectionViewCell.swift */,
 				A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */,
+				A1EF0F382A0ACAFF0057BDBB /* MainTableViewCell.swift */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -337,8 +343,10 @@
 				85B34BEE2A0A626300851415 /* LanguageViewController.swift in Sources */,
 				A149970D2A069D0600794415 /* NewsModel.swift in Sources */,
 				A16017162A06C2BC004A693D /* Data+PrettyJSON.swift in Sources */,
+				A1EF0F372A0AB3800057BDBB /* MainCollectionViewCell.swift in Sources */,
 				A14997092A0695EC00794415 /* FakeViewController.swift in Sources */,
 				A1EF0F2B2A08178F0057BDBB /* BrowseViewController.swift in Sources */,
+				A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */,
 				A14997192A06A45F00794415 /* HTTPClient.swift in Sources */,
 				85B34BEC2A090E7100851415 /* DetailNewsViewController.swift in Sources */,
 				A14996EC2A0688F100794415 /* AppDelegate.swift in Sources */,
