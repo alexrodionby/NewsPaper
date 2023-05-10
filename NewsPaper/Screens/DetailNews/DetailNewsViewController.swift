@@ -26,7 +26,6 @@ class DetailNewsViewController: UIViewController {
        let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.backgroundColor = .white
-
         return scroll
     }()
     
@@ -41,6 +40,7 @@ class DetailNewsViewController: UIViewController {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.textColor = .lightGray
         return label
     }()
     
@@ -185,8 +185,27 @@ class DetailNewsViewController: UIViewController {
         addView()
         layout()
         
+        //MARK: - Custom nav bar back button config
+        let backButtonImage = UIImage(named: "backButtonWhite")
+        
+        // Create a custom button with the image
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(backButtonImage, for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        backButton.frame = CGRect(x: 0, y: 0, width: 12, height: 12)
+        
+        // Create a UIBarButtonItem with the custom button
+        let customBackButton = UIBarButtonItem(customView: backButton)
+        
+        // Set the custom button as the left bar button item
+        self.navigationItem.leftBarButtonItem = customBackButton
+        
     }
-    
+    // Function to handle the custom back button's tap event
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+        
+    }
 }
 
 
