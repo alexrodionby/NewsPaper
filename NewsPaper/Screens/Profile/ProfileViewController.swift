@@ -10,14 +10,14 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private let profileFotoImageView: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: "gilfoyle")
         return image
     }()
     
     private let userNameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Bertram Gilfoyle"
@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController {
     }()
     
     private let emailLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "pied@piper.com"
@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-//MARK: - languageButton button config
+    //MARK: - languageButton button config
     
     private lazy var languageButton: UIButton = {
         let button = UIButton()
@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(LanguageViewController(), animated: true)
     }
     private let languageButtonTitleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Language"
@@ -62,7 +62,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     private let languageButtonArrowImage: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: "arrowRight")
         return image
@@ -86,7 +86,7 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(TermsConditionsViewController(), animated: true)
     }
     private let termsConditionsButtonTitleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Terms & Conditions"
@@ -95,7 +95,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     private let termsConditionsButtonArrowImage: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: "arrowRight")
         return image
@@ -103,15 +103,23 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Terms & Conditions button config
     
-    private let signOutButton: UIButton = {
+    private lazy var signOutButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(signOutButtonPressed), for: .touchUpInside)
         return button
     }()
+    @objc private func signOutButtonPressed(sender: UIButton) {
+        sender.alpha = 0.3
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            sender.alpha = 1.0
+        }
+        // need to add push new screen
+    }
     private let signOutButtonTitleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Sign Out"
@@ -120,7 +128,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     private let signOutButtonArrowImage: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: "goOut")
         return image
@@ -179,7 +187,7 @@ class ProfileViewController: UIViewController {
             
             termsConditionsButtonArrowImage.trailingAnchor.constraint(equalTo: termsConditionsButton.trailingAnchor, constant: -24),
             termsConditionsButtonArrowImage.centerYAnchor.constraint(equalTo: termsConditionsButton.centerYAnchor),
-            //MARK: - Terms & Conditions button config
+            //MARK: - Sign out button config
             signOutButton.topAnchor.constraint(equalTo: termsConditionsButton.bottomAnchor, constant: 28),
             signOutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -201,7 +209,7 @@ class ProfileViewController: UIViewController {
         layout()
         
         self.title = "Profile"
-        // Устанавливаем крупный шрифт заголовку а так же отступ слева
+        // Create large title font
         navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
             NSAttributedString.Key.paragraphStyle: {
@@ -213,4 +221,13 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // hide text "Back"
+        let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButton
+    }
+    
 }
+
+
