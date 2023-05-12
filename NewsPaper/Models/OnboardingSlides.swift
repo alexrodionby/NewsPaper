@@ -7,9 +7,8 @@
 
 import UIKit
 
-struct OnboardingModel {
+struct OnboardingSlides {
     let image: UIImage
-    let pageControl: UIPageControl
     let title: String
     let description: String
 }
