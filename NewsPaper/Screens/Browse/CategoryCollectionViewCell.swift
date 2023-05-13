@@ -55,7 +55,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         categoryTitleLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
-        
         updateSelectionAppearance()
     }
     

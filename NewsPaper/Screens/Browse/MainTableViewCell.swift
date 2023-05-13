@@ -35,13 +35,13 @@ class MainTableViewCell: UITableViewCell {
     private let likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
-        button.tintColor = .red
+        button.tintColor = UIColor(named: "purplePrimary")
         button.addTarget(nil, action: #selector(likeTapped), for: .touchUpInside)
         return button
     }()
     
     @objc func likeTapped() {
-        print("Нажали likeTapped")
+        print("Нажали likeTapped в таблице")
         // тут логика добавления в избранное + смена внешнего вида кнопки (заливка)
     }
     

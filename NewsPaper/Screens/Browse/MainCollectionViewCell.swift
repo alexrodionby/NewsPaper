@@ -24,13 +24,13 @@ class MainCollectionViewCell: UICollectionViewCell {
     private let likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
-        button.tintColor = .red
+        button.tintColor = UIColor(named: "purplePrimary")
         button.addTarget(nil, action: #selector(likeTapped), for: .touchUpInside)
         return button
     }()
     
     @objc func likeTapped() {
-        print("Нажали likeTapped")
+        print("Нажали likeTapped в коллекции")
         // тут логика добавления в избранное + смена внешнего вида кнопки (заливка)
     }
     
@@ -56,8 +56,8 @@ class MainCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(mainCellView)
-        mainCellView.addSubview(likeButton)
         mainCellView.addSubview(mainCellTitleLabel)
+        contentView.addSubview(likeButton)
         
         mainCellView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -75,7 +75,6 @@ class MainCollectionViewCell: UICollectionViewCell {
             $0.bottom.equalTo(mainCellView.snp.bottom)
             $0.height.equalTo(70)
         }
-        
     }
 
     func configureCell(article: Article) {
@@ -83,5 +82,4 @@ class MainCollectionViewCell: UICollectionViewCell {
         let url = URL(string: article.urlToImage ?? "")
         mainCellView.kf.setImage(with: url)
     }
-    
 }
