@@ -40,6 +40,9 @@
 		A1EF0F352A084B850057BDBB /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */; };
 		A1EF0F372A0AB3800057BDBB /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F362A0AB3800057BDBB /* MainCollectionViewCell.swift */; };
 		A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EF0F382A0ACAFF0057BDBB /* MainTableViewCell.swift */; };
+		E4BF57182A0D021900762F22 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BF57172A0D021900762F22 /* OnboardingViewController.swift */; };
+		E4BF571A2A0E1EDB00762F22 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BF57192A0E1EDB00762F22 /* OnboardingCollectionViewCell.swift */; };
+		E4BF571C2A0E41CD00762F22 /* OnboardingSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BF571B2A0E41CD00762F22 /* OnboardingSlides.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +79,9 @@
 		A1EF0F342A084B850057BDBB /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EF0F362A0AB3800057BDBB /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EF0F382A0ACAFF0057BDBB /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		E4BF57172A0D021900762F22 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		E4BF57192A0E1EDB00762F22 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		E4BF571B2A0E41CD00762F22 /* OnboardingSlides.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlides.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				85ED45542A0D071D00146B5E /* Registration */,
+				E4BF57162A0D012A00762F22 /* Onboarding */,
 				85B34BEA2A09008A00851415 /* DetailNews */,
 				A1EF0F222A0816AC0057BDBB /* TabBar */,
 				A1EF0F232A0816DB0057BDBB /* Browse */,
@@ -177,6 +184,7 @@
 			children = (
 				15A927842A124FDE00D19E03 /* CategoryModel.swift */,
 				A149970C2A069D0600794415 /* NewsModel.swift */,
+				E4BF571B2A0E41CD00762F22 /* OnboardingSlides.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -290,6 +298,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		E4BF57162A0D012A00762F22 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E4BF57172A0D021900762F22 /* OnboardingViewController.swift */,
+				E4BF57192A0E1EDB00762F22 /* OnboardingCollectionViewCell.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -372,6 +389,7 @@
 				A1EF0F2F2A0817B00057BDBB /* BookmarksViewController.swift in Sources */,
 				A14997172A06A35100794415 /* RequestError.swift in Sources */,
 				15A9277D2A124FB900D19E03 /* CategoriesView.swift in Sources */,
+				E4BF571A2A0E1EDB00762F22 /* OnboardingCollectionViewCell.swift in Sources */,
 				A149971B2A06A84200794415 /* NewsEndpoint.swift in Sources */,
 				85B34BEE2A0A626300851415 /* LanguageViewController.swift in Sources */,
 				A149970D2A069D0600794415 /* NewsModel.swift in Sources */,
@@ -379,6 +397,7 @@
 				A1EF0F372A0AB3800057BDBB /* MainCollectionViewCell.swift in Sources */,
 				15A927832A124FCA00D19E03 /* CategoryStackView.swift in Sources */,
 				A14997092A0695EC00794415 /* FakeViewController.swift in Sources */,
+				E4BF57182A0D021900762F22 /* OnboardingViewController.swift in Sources */,
 				A1EF0F2B2A08178F0057BDBB /* BrowseViewController.swift in Sources */,
 				A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */,
 				A14997192A06A45F00794415 /* HTTPClient.swift in Sources */,
@@ -393,6 +412,7 @@
 				15A927812A124FC500D19E03 /* CategoryPageService.swift in Sources */,
 				85ED455A2A0FC32900146B5E /* RegistrationViewController.swift in Sources */,
 				85B34BF02A0A62A900851415 /* TermsConditionsViewController.swift in Sources */,
+				E4BF571C2A0E41CD00762F22 /* OnboardingSlides.swift in Sources */,
 				A149971D2A06ACD800794415 /* NewsService.swift in Sources */,
 				A1EF0F332A0818B50057BDBB /* TabBarViewController.swift in Sources */,
 				A1EF0F2D2A08179F0057BDBB /* CategoriesViewController.swift in Sources */,
