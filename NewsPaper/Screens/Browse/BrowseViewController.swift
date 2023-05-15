@@ -43,7 +43,6 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: "MainCell")
         collectionView.allowsSelection = true
         collectionView.showsHorizontalScrollIndicator = false
-        //collectionView.backgroundColor = .red
         return collectionView
     }()
     
@@ -53,7 +52,6 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        //tableView.backgroundColor = .green
         return tableView
     }()
     
@@ -66,7 +64,6 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         Task {
             do {
                 articleForCategory = try await NewsService.shared.topHeadlines().articles ?? []
@@ -150,13 +147,20 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
             $0.top.equalTo(mainCollectionView.snp.bottom)
             $0.bottom.equalToSuperview()
         }
-        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
             print("Выполняется поиск: \(searchText)")
             searchBar.resignFirstResponder()
+            Task {
+                do {
+                    articleForCategory = try await NewsService.shared.searchWord(word: searchText).articles ?? []
+                    mainCollectionView.reloadData()
+                } catch {
+                    print("Error =", error.localizedDescription)
+                }
+            }
         }
     }
     
@@ -221,7 +225,6 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.configureCell(article: article)
             return cell
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -245,7 +248,6 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         return UIEdgeInsets.zero
     }
-    
 }
 
 extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
@@ -268,5 +270,4 @@ extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
         vc.article = article
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
