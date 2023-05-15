@@ -22,6 +22,8 @@ class CategoriesViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view = categoriesView
         let stack = CategoryStackView()
         for category in categories {
@@ -30,6 +32,8 @@ class CategoriesViewController: UIViewController {
         }
         categoriesView.setUIElements(stack: stack)
         
-        super.viewDidLoad()
+        
+        title = "Categories"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

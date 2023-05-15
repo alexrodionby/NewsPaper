@@ -38,6 +38,7 @@ class TabBarViewController: UITabBarController {
         viewController.tabBarItem.tag = tag
         viewController.tabBarItem.title = title
         return UINavigationController(rootViewController: viewController)
+       // return viewController
     }
     
     private func setTabBarAppearance() {
