@@ -102,9 +102,11 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         
         setupView()
         setupConstraints()
-        
+
         title = "Browse"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+  
     }
     
     private func setupView() {

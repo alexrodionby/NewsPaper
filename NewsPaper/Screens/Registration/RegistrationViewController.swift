@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
     
@@ -57,6 +58,7 @@ class RegistrationViewController: UIViewController {
         textField.setLeftPaddingPoints(64)
         textField.placeholder = "Email adress"
         textField.textColor = .black
+        textField.autocapitalizationType = .none
         return textField
     }()
     private let emailTextFieldImage: UIImageView = {
@@ -176,7 +178,26 @@ class RegistrationViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             sender.alpha = 1.0
         }
-        
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let repeatPassword = repeatPasswordTextField.text,
+              password == repeatPassword else {
+            // ошибка при проверке паролей
+            self.alarmLabel.textColor = .systemRed
+            self.alarmLabel.text = "Passwords do not match"
+            return
+        }
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                // если есть ошибка, то выводим описание
+                print(error.localizedDescription)
+                self.alarmLabel.textColor = .systemRed
+                self.alarmLabel.text = error.localizedDescription
+            } else {
+                // если пользователя создали успешно, то перегружаем предыдущий VC
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     //MARK: - Alarm label, compare textfields config
     
@@ -276,7 +297,6 @@ class RegistrationViewController: UIViewController {
             signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -36),
             signInButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -66),
             //MARK: - Alarm label
-            
             alarmLabel.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 10),
             alarmLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
