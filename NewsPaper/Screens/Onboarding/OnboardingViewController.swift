@@ -59,7 +59,7 @@ class OnboardingViewController: UIViewController {
         self.view.addSubview(collectionView)
         self.view.addSubview(nextButton)
         addConstraints()
-        
+        self.navigationItem.hidesBackButton = true
     }
 
     

@@ -116,7 +116,7 @@ class ProfileViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             sender.alpha = 1.0
         }
-        // need to add push new screen
+        navigationController?.pushViewController(OnboardingViewController(), animated: true)
     }
     private let signOutButtonTitleLabel: UILabel = {
         let label = UILabel()
