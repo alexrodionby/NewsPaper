@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+
+//login admin@gmail.com
+//password admin12345
 
 class AutorizationViewController: UIViewController {
     
@@ -31,6 +36,7 @@ class AutorizationViewController: UIViewController {
         textField.setLeftPaddingPoints(64)
         textField.placeholder = "Email Adress"
         textField.textColor = .black
+        textField.autocapitalizationType = .none
         return textField
     }()
     private let emailTextFieldImage: UIImageView = {
@@ -58,6 +64,7 @@ class AutorizationViewController: UIViewController {
         textField.setLeftPaddingPoints(64)
         textField.placeholder = "Password"
         textField.textColor = .black
+        textField.autocapitalizationType = .none
         return textField
     }()
     private let passwordTextFieldImage: UIImageView = {
@@ -96,7 +103,7 @@ class AutorizationViewController: UIViewController {
             toggleObserver = true
         }
     }
-    //MARK: - Sign in button config
+    //MARK: - Sign in button config with firebase autorization
     
     private lazy var signInButton: UIButton = {
         let button = UIButton()
@@ -113,8 +120,56 @@ class AutorizationViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             sender.alpha = 1.0
         }
-        
+        authenticateUser()
     }
+    
+    private func authenticateUser() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) {
+            [weak self] authResult, error in guard let strongSelf = self else { return }
+            if error != nil {
+                if password.isEmpty {
+                    self?.showMessage("Enter password")
+                } else {
+                    self?.showMessage("Autorization fail. Try again")
+                }
+            } else {
+                strongSelf.showMainViewController()
+            }
+        }
+    }
+    private func showMainViewController() {
+        
+        let newViewController = TabBarViewController()
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = newViewController
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    private func showMessage(_ message: String) {
+        alarmLabel.text = message
+        view.addSubview(alarmLabel)
+        NSLayoutConstraint.activate([
+            alarmLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+            alarmLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.alarmLabel.removeFromSuperview()
+        })
+    }
+    //MARK: - Alarm label
+    
+    private let alarmLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .red
+        return label
+    }()
+    
     //MARK: - Sign Up label and button config
     
     private let signUpLabel: UILabel = {
@@ -189,7 +244,6 @@ class AutorizationViewController: UIViewController {
             
             signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -36),
             signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -66),
-            
         ])
     }
     
@@ -198,6 +252,8 @@ class AutorizationViewController: UIViewController {
         view.backgroundColor = .white
         
         addViewLayout()
+        // hides back nav button
+        self.navigationItem.hidesBackButton = true
         
         //MARK: - large font nav bar
         self.title = "Wellcome back\(wavingHand)"
@@ -256,3 +312,5 @@ extension UITextField {
         self.rightViewMode = .always
     }
 }
+
+

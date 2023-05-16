@@ -14,7 +14,7 @@ class OnboardingViewController: UIViewController {
         didSet {
             onboardingCVC.slidePageControl.currentPage = currentPage
             if currentPage == onboardingSlides.count - 1 {
-                nextButton.setTitle("Get Startd", for: .normal)
+                nextButton.setTitle("Get Start", for: .normal)
             } else {
                 nextButton.setTitle("Next", for: .normal)
             }
@@ -59,6 +59,7 @@ class OnboardingViewController: UIViewController {
         self.view.addSubview(collectionView)
         self.view.addSubview(nextButton)
         addConstraints()
+        
     }
 
     
@@ -76,8 +77,8 @@ class OnboardingViewController: UIViewController {
 
     @objc func nextPressed() {
         if currentPage == onboardingSlides.count - 1 {
-//            let vc = BrowseViewController()
-//            navigationController?.pushViewController(vc, animated: true)
+            
+            navigationController?.pushViewController(AutorizationViewController(), animated: true)
             print("push BrowseViewController")
         } else {
             currentPage += 1
