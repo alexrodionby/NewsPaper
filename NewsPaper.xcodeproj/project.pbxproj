@@ -103,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15A927862A12A12400D19E03 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				15A927872A12A17E00D19E03 /* LocalStorageService.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		85B34BEA2A09008A00851415 /* DetailNews */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +207,7 @@
 		A14997062A06942E00794415 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				15A927862A12A12400D19E03 /* Storage */,
 				A149970E2A069DE100794415 /* Network */,
 			);
 			path = Services;
@@ -411,6 +420,7 @@
 				E4BF57182A0D021900762F22 /* OnboardingViewController.swift in Sources */,
 				A1EF0F2B2A08178F0057BDBB /* BrowseViewController.swift in Sources */,
 				A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */,
+				15A927882A12A17E00D19E03 /* LocalStorageService.swift in Sources */,
 				A14997192A06A45F00794415 /* HTTPClient.swift in Sources */,
 				85B34BEC2A090E7100851415 /* DetailNewsViewController.swift in Sources */,
 				A14996EC2A0688F100794415 /* AppDelegate.swift in Sources */,
