@@ -58,7 +58,7 @@ class CategoriesView: UIView {
     func setUIElements(stack : UIStackView) {
         backgroundColor = .white
         self.stack = stack
-        addSubview(header)
+      //  addSubview(header)
         addSubview(info)
         addSubview(stack)
         if (isOnboarding) {
@@ -70,14 +70,14 @@ class CategoriesView: UIView {
     
     private func setConstraints() {
         // header
-        header.translatesAutoresizingMaskIntoConstraints = false
-        header.topAnchor.constraint(equalTo: self.topAnchor, constant: 72).isActive = true
-        header.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideOffset).isActive = true
-        header.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        
+//        header.translatesAutoresizingMaskIntoConstraints = false
+//        header.topAnchor.constraint(equalTo: self.topAnchor, constant: 72).isActive = true
+//        header.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideOffset).isActive = true
+//        header.heightAnchor.constraint(equalToConstant: 32).isActive = true
+//
         // info
         info.translatesAutoresizingMaskIntoConstraints = false
-        info.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 8).isActive = true
+        info.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         info.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sideOffset).isActive = true
         info.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -sideOffset).isActive = true
         

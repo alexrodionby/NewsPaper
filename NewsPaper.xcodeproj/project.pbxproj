@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		15A9277D2A124FB900D19E03 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A9277C2A124FB900D19E03 /* CategoriesView.swift */; };
 		15A9277F2A124FBF00D19E03 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A9277E2A124FBF00D19E03 /* CategoryButton.swift */; };
-		15A927812A124FC500D19E03 /* CategoryPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A927802A124FC500D19E03 /* CategoryPageService.swift */; };
+		15A927812A124FC500D19E03 /* CategoriesViewFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A927802A124FC500D19E03 /* CategoriesViewFabric.swift */; };
 		15A927832A124FCA00D19E03 /* CategoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A927822A124FCA00D19E03 /* CategoryStackView.swift */; };
 		15A927852A124FDE00D19E03 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A927842A124FDE00D19E03 /* CategoryModel.swift */; };
+		15C8C9A42A144371001501E6 /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8C9A32A144371001501E6 /* LocalStorageService.swift */; };
 		859219D92A12C8F300FCE5D0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 859219D52A1261EB00FCE5D0 /* FirebaseAnalytics */; };
 		859219DA2A12C8F300FCE5D0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 859219D72A1261EB00FCE5D0 /* FirebaseAuth */; };
 		859219DC2A12CA3500FCE5D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 859219DB2A12CA3400FCE5D0 /* GoogleService-Info.plist */; };
@@ -51,9 +52,10 @@
 /* Begin PBXFileReference section */
 		15A9277C2A124FB900D19E03 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		15A9277E2A124FBF00D19E03 /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
-		15A927802A124FC500D19E03 /* CategoryPageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPageService.swift; sourceTree = "<group>"; };
+		15A927802A124FC500D19E03 /* CategoriesViewFabric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewFabric.swift; sourceTree = "<group>"; };
 		15A927822A124FCA00D19E03 /* CategoryStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryStackView.swift; sourceTree = "<group>"; };
 		15A927842A124FDE00D19E03 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		15C8C9A32A144371001501E6 /* LocalStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
 		859219DB2A12CA3400FCE5D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../Screens/Registration/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		85B34BEB2A090E7100851415 /* DetailNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsViewController.swift; sourceTree = "<group>"; };
 		85B34BED2A0A626300851415 /* LanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +108,7 @@
 		15A927862A12A12400D19E03 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				15A927872A12A17E00D19E03 /* LocalStorageService.swift */,
+				15C8C9A32A144371001501E6 /* LocalStorageService.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -288,7 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				15A927822A124FCA00D19E03 /* CategoryStackView.swift */,
-				15A927802A124FC500D19E03 /* CategoryPageService.swift */,
+				15A927802A124FC500D19E03 /* CategoriesViewFabric.swift */,
 				15A9277E2A124FBF00D19E03 /* CategoryButton.swift */,
 				15A9277C2A124FB900D19E03 /* CategoriesView.swift */,
 				A1EF0F2C2A08179F0057BDBB /* CategoriesViewController.swift */,
@@ -415,12 +417,12 @@
 				A149970D2A069D0600794415 /* NewsModel.swift in Sources */,
 				A16017162A06C2BC004A693D /* Data+PrettyJSON.swift in Sources */,
 				A1EF0F372A0AB3800057BDBB /* MainCollectionViewCell.swift in Sources */,
+				15C8C9A42A144371001501E6 /* LocalStorageService.swift in Sources */,
 				15A927832A124FCA00D19E03 /* CategoryStackView.swift in Sources */,
 				A14997092A0695EC00794415 /* FakeViewController.swift in Sources */,
 				E4BF57182A0D021900762F22 /* OnboardingViewController.swift in Sources */,
 				A1EF0F2B2A08178F0057BDBB /* BrowseViewController.swift in Sources */,
 				A1EF0F392A0ACAFF0057BDBB /* MainTableViewCell.swift in Sources */,
-				15A927882A12A17E00D19E03 /* LocalStorageService.swift in Sources */,
 				A14997192A06A45F00794415 /* HTTPClient.swift in Sources */,
 				85B34BEC2A090E7100851415 /* DetailNewsViewController.swift in Sources */,
 				A14996EC2A0688F100794415 /* AppDelegate.swift in Sources */,
@@ -430,7 +432,7 @@
 				A14996EE2A0688F100794415 /* SceneDelegate.swift in Sources */,
 				A1EF0F312A0817C90057BDBB /* ProfileViewController.swift in Sources */,
 				15A9277F2A124FBF00D19E03 /* CategoryButton.swift in Sources */,
-				15A927812A124FC500D19E03 /* CategoryPageService.swift in Sources */,
+				15A927812A124FC500D19E03 /* CategoriesViewFabric.swift in Sources */,
 				85ED455A2A0FC32900146B5E /* RegistrationViewController.swift in Sources */,
 				85B34BF02A0A62A900851415 /* TermsConditionsViewController.swift in Sources */,
 				E4BF571C2A0E41CD00762F22 /* OnboardingSlides.swift in Sources */,
