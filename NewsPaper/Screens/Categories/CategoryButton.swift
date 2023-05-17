@@ -8,10 +8,8 @@
 import UIKit
 
 class CategoryButton: UIButton {
-
-    static let maxSelectedCount = 2
-    static var selectedCount = 0
-    
+    static var wasChanged = false
+    static var selectedNames = Set<String>()
     var category: CategoryModel
     
     init(category: CategoryModel) {
@@ -34,7 +32,7 @@ class CategoryButton: UIButton {
     // MARK: - Title
     
     private func setTitle() {
-        setTitle(category.name, for: .normal)
+        setTitle(category.title, for: .normal)
     }
     
     // MARK: - Button
@@ -50,21 +48,11 @@ class CategoryButton: UIButton {
     // OnButtonPressed
     
     @objc func onButtonPressed(sender: UIButton) {
-        if (isFull && !category.isSelected) {
-            return
-        }
+        CategoryButton.wasChanged = true
         category.isSelected = !category.isSelected
         setDependsOn(isSelected: category.isSelected)
-        
-        CategoryButton.selectedCount += category.isSelected ? 1 : -1
-        if (isFull){
-            
-        }
     }
     
-    var isFull: Bool {
-        return CategoryButton.selectedCount == CategoryButton.maxSelectedCount
-    }
     
     // MARK: - Depends on selected mode
     
@@ -73,6 +61,11 @@ class CategoryButton: UIButton {
         self.backgroundColor = isSelected ? UIColor(named: "purplePrimary") : .white
         let titleColor: UIColor = isSelected ? .white : .black
         setTitleColor(titleColor, for: .normal)
+        if isSelected {
+            CategoryButton.selectedNames.insert(category.name)
+        } else {
+            CategoryButton.selectedNames.remove(category.name)
+        }
     }
     
     // MARK: - Constraints

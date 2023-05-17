@@ -24,10 +24,10 @@ class TabBarViewController: UITabBarController {
     }
     
     private func generateTabBar() {
-        let categoryPageContent = CategoryPageService.getContent(isOnboarding: false)
+        let categoriesView = CategoriesViewFabric.get(isOnboarding: false)
         viewControllers = [
             generateVC(viewController: BrowseViewController(), title: "Browse", image: UIImage(systemName: "house")?.withTintColor(.gray), selectedImage: UIImage(systemName: "house.fill")?.withTintColor(UIColor(named: "purplePrimary")!), tag: Tabs.browse.rawValue),
-            generateVC(viewController: CategoriesViewController(isOnboarding: false, header: categoryPageContent.header, info: categoryPageContent.info), title: "Categories", image: UIImage(systemName: "square.grid.2x2")?.withTintColor(.gray), selectedImage: UIImage(systemName: "square.grid.2x2.fill")?.withTintColor(UIColor(named: "purplePrimary")!), tag: Tabs.categories.rawValue),
+            generateVC(viewController: CategoriesViewController(categoriesView), title: "Categories", image: UIImage(systemName: "square.grid.2x2")?.withTintColor(.gray), selectedImage: UIImage(systemName: "square.grid.2x2.fill")?.withTintColor(UIColor(named: "purplePrimary")!), tag: Tabs.categories.rawValue),
             generateVC(viewController: BookmarksViewController(), title: "Bookmarks", image: UIImage(systemName: "bookmark")?.withTintColor(.gray), selectedImage: UIImage(systemName: "bookmark.fill")?.withTintColor(UIColor(named: "purplePrimary")!), tag: Tabs.bookmarks.rawValue),
             generateVC(viewController: ProfileViewController(), title: "Profile", image: UIImage(systemName: "person")?.withTintColor(.gray), selectedImage: UIImage(systemName: "person.fill")?.withTintColor(UIColor(named: "purplePrimary")!), tag: Tabs.profile.rawValue)
         ]
