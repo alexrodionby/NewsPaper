@@ -17,6 +17,7 @@ class CategoriesViewController: UIViewController {
     init(_ categoriesView: CategoriesView) {
         super.init(nibName: nil, bundle: nil)
         self.categoriesView = categoriesView
+        self.navigationItem.hidesBackButton = true
     }
     
     required init?(coder: NSCoder) {
@@ -71,7 +72,7 @@ class CategoriesViewController: UIViewController {
         for var category in categories {
             if(notNil){
                 if(selectedCaregories!.contains(category.name)) {
-                    category.isSelected = true
+                    category.isSelected = true && !categoriesView.isOnboarding
                 }
             }
             let button = CategoryButton(category: category)
