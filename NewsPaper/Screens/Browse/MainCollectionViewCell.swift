@@ -8,9 +8,16 @@
 import UIKit
 import Kingfisher
 
+protocol FavoriteButtonDelegate: AnyObject {
+    func didTapFavoriteButton(at indexPath: IndexPath)
+}
+
 class MainCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MainCell"
+    
+    weak var delegate: FavoriteButtonDelegate?
+    var indexPath: IndexPath?
     
     private var mainCellView: UIImageView = {
         let view = UIImageView()
@@ -32,6 +39,9 @@ class MainCollectionViewCell: UICollectionViewCell {
     @objc func likeTapped() {
         print("Нажали likeTapped в коллекции")
         // тут логика добавления в избранное + смена внешнего вида кнопки (заливка)
+        if let indexPath = indexPath {
+            delegate?.didTapFavoriteButton(at: indexPath)
+        }
     }
     
     private var mainCellTitleLabel: UILabel = {
@@ -76,10 +86,15 @@ class MainCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(70)
         }
     }
-
+    
     func configureCell(article: Article) {
         mainCellTitleLabel.text = article.title
         let url = URL(string: article.urlToImage ?? "")
         mainCellView.kf.setImage(with: url)
+        if article.favorites == true {
+            likeButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
     }
 }

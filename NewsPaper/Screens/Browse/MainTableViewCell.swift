@@ -9,7 +9,13 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol FavoriteButtonDelegate2: AnyObject {
+    func didTapFavoriteButton2(in cell: MainTableViewCell)
+}
+
 class MainTableViewCell: UITableViewCell {
+    
+    weak var delegate: FavoriteButtonDelegate2?
     
     static let identifier = "MainTableCell"
     
@@ -43,6 +49,8 @@ class MainTableViewCell: UITableViewCell {
     @objc func likeTapped() {
         print("Нажали likeTapped в таблице")
         // тут логика добавления в избранное + смена внешнего вида кнопки (заливка)
+            delegate?.didTapFavoriteButton2(in: self)
+        
     }
     
     private let tableCellTitleLabel: UILabel = {
@@ -133,5 +141,10 @@ class MainTableViewCell: UITableViewCell {
         let url = URL(string: article.urlToImage ?? "")
         let placeholderImage = UIImage(systemName: "photo.circle.fill")
         articleImageView.kf.setImage(with: url, placeholder: placeholderImage)
+        if article.favorites == true {
+            likeButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
     }
 }

@@ -15,7 +15,7 @@ struct News: Codable {
 }
 
 // MARK: - Article
-struct Article: Codable {
+struct Article: Codable, Hashable {
     let source: Source?
     let author: String?
     let title, description: String?
@@ -23,11 +23,11 @@ struct Article: Codable {
     let urlToImage: String?
     let publishedAt: String?
     let content: String?
-    let favorites: Bool? // Добавил параметр для добавления статьи в избранное
+    var favorites: Bool?// Добавил параметр для добавления статьи в избранное
 }
 
 // MARK: - Source
-struct Source: Codable {
+struct Source: Codable, Hashable {
     let id: String?
     let name: String?
 }

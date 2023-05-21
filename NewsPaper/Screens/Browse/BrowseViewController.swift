@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 
-class BrowseViewController: UIViewController, UISearchBarDelegate {
+class BrowseViewController: UIViewController, UISearchBarDelegate, FavoriteButtonDelegate {
     
     let allCategory = ["Random", "Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     var articleForCategory: [Article] = []
     var articleForFavoriteCategories: [Article] = []
     // Любимые категории надо загрузить из юзердефаулт
     var favoritCategories = ["sports", "technology"]
+    var favoriteArticles: [Article] = []
     
     private let mainLabel: UILabel = {
         let label = UILabel()
@@ -102,11 +103,17 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
         
         setupView()
         setupConstraints()
-
+        
         title = "Browse"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-  
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+            NSAttributedString.Key.paragraphStyle: {
+                let style = NSMutableParagraphStyle()
+                style.firstLineHeadIndent = 0.0
+                return style
+            }()
+        ]
     }
     
     private func setupView() {
@@ -149,6 +156,23 @@ class BrowseViewController: UIViewController, UISearchBarDelegate {
             $0.top.equalTo(mainCollectionView.snp.bottom)
             $0.bottom.equalToSuperview()
         }
+    }
+    
+    func didTapFavoriteButton(at indexPath: IndexPath) {
+        print("Нажали на кнопку избранное в коллекции и отработали код в контроллере")
+        let selectedArticle = articleForCategory[indexPath.item]
+        let isFavorite = favoriteArticles.contains(selectedArticle)
+        if isFavorite {
+            // Удаление статьи из массива избранного
+            if let index = favoriteArticles.firstIndex(of: selectedArticle) {
+                favoriteArticles.remove(at: index)
+            }
+        } else {
+            // Добавление статьи в массив избранного
+            favoriteArticles.append(selectedArticle)
+        }
+        mainCollectionView.reloadItems(at: [indexPath])
+        print("Добавлено в избранное", favoriteArticles.count)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -223,8 +247,17 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCollectionViewCell
-            let article = articleForCategory[indexPath.item]
-            cell.configureCell(article: article)
+            cell.delegate = self
+            cell.indexPath = indexPath
+            
+            var selectedArticle = articleForCategory[indexPath.item]
+            let isFavorite = favoriteArticles.contains(selectedArticle)
+            if isFavorite {
+                selectedArticle.favorites = true
+            } else {
+                selectedArticle.favorites = false
+            }
+            cell.configureCell(article: selectedArticle)
             return cell
         }
     }
@@ -252,15 +285,52 @@ extension BrowseViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-extension BrowseViewController: UITableViewDelegate, UITableViewDataSource {
+extension BrowseViewController: UITableViewDelegate, UITableViewDataSource, FavoriteButtonDelegate2 {
+
+    func didTapFavoriteButton2(in cell: MainTableViewCell) {
+        print("Нажали на кнопку избранное в таблице и отработали код в контроллере")
+        
+        guard let indexPath = mainTableView.indexPath(for: cell) else {
+            return
+        }
+        
+        let selectedArticle = articleForFavoriteCategories[indexPath.row]
+        
+        // Check if the article is already in the favorite list
+        if favoriteArticles.contains(selectedArticle) {
+            if let index = favoriteArticles.firstIndex(of: selectedArticle) {
+                favoriteArticles.remove(at: index)
+            }
+        } else {
+            favoriteArticles.append(selectedArticle)
+        }
+        
+        // Reload the specific row in the table view
+        mainTableView.reloadRows(at: [indexPath], with: .automatic)
+        
+        print("Добавлено в избранное", favoriteArticles.count)
+    }
+
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         articleForFavoriteCategories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableCell", for: indexPath) as! MainTableViewCell
-        let article = articleForFavoriteCategories[indexPath.item]
-        cell.configureCell(article: article)
+        //let article = articleForFavoriteCategories[indexPath.item]
+        
+        cell.delegate = self
+        
+        var selectedArticle = articleForFavoriteCategories[indexPath.item]
+        let isFavorite = favoriteArticles.contains(selectedArticle)
+        if isFavorite {
+            selectedArticle.favorites = true
+        } else {
+            selectedArticle.favorites = false
+        }
+        cell.configureCell(article: selectedArticle)
         return cell
     }
     

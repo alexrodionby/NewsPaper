@@ -52,6 +52,15 @@ class CategoriesViewController: UIViewController {
         if (categoriesView.isOnboarding) {
             navigationController?.navigationBar.largeTitleTextAttributes =
             [ NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 28)]
+        } else {
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+                NSAttributedString.Key.paragraphStyle: {
+                    let style = NSMutableParagraphStyle()
+                    style.firstLineHeadIndent = 0.0
+                    return style
+                }()
+            ]
         }
         navigationController?.navigationBar.prefersLargeTitles = true
     }
