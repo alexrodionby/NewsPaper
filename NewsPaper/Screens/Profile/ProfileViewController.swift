@@ -116,6 +116,7 @@ class ProfileViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             sender.alpha = 1.0
         }
+        LocalStorageService.shared.loggedOut(false)
         navigationController?.pushViewController(OnboardingViewController(), animated: true)
     }
     private let signOutButtonTitleLabel: UILabel = {

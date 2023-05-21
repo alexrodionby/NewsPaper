@@ -15,6 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
     //   let navigationController = UINavigationController(rootViewController: BookmarksViewController())
+        var controller = UIViewController()
+        if LocalStorageService.shared.loggedIn() == false {
+            controller = OnboardingViewController()
+        } else {
+            controller = TabBarViewController()
+        }
         window?.rootViewController = TabBarViewController()
         window?.makeKeyAndVisible()
     }

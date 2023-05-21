@@ -47,6 +47,13 @@ final class LocalStorageService {
         load(key: "articles")
     }
     
+    func loggedIn() -> Bool? {
+        load(key: "logged")
+    }
+    
+    func loggedOut(_ logOut: Bool) {
+        save(logOut, key: "logged")
+    }
     // MARK: - private save / load methods
     
       private func save<T: Codable>(_ object: T, key: String) {
