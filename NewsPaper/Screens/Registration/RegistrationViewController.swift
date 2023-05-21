@@ -302,6 +302,16 @@ class RegistrationViewController: UIViewController {
         ])
     }
     
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -322,6 +332,11 @@ class RegistrationViewController: UIViewController {
             }()
         ]
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        //MARK: - Hide keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
 }
 
