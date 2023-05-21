@@ -9,8 +9,8 @@ import UIKit
 
 class BookmarksViewController: UIViewController {
     
-    var articleForFavoriteCategories: [Article] = []
-    var favoritCategories = ["sports", "technology"]
+    //var articleForFavoriteCategories: [Article] = []
+    //var favoritCategories = ["sports", "technology"]
     
     var favoriteArticles: [Article] = {
         let favorite = LocalStorageService.shared.loadArticles()
@@ -107,7 +107,7 @@ extension BookmarksViewController: UITableViewDelegate, UITableViewDataSource, F
             return
         }
         
-        let selectedArticle = articleForFavoriteCategories[indexPath.row]
+        let selectedArticle = favoriteArticles[indexPath.row]
         
         // Check if the article is already in the favorite list
         if favoriteArticles.contains(selectedArticle) {
@@ -119,7 +119,8 @@ extension BookmarksViewController: UITableViewDelegate, UITableViewDataSource, F
         }
         
         // Reload the specific row in the table view
-        mainTableView.reloadRows(at: [indexPath], with: .automatic)
+     //   mainTableView.reloadRows(at: [indexPath], with: .automatic)
+        mainTableView.reloadData()
         
         print("Добавлено в избранное", favoriteArticles.count)
     }
