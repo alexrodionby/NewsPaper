@@ -16,6 +16,7 @@ class AutorizationViewController: UIViewController {
     
     let wavingHand: Character = "\u{1F44B}"
     
+
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +61,9 @@ class AutorizationViewController: UIViewController {
         textField.backgroundColor = .systemGray5
         textField.layer.cornerRadius = 12
         textField.leftViewMode = .always
+        textField.rightViewMode = .always
         textField.delegate = self
+        textField.setRightPaddingPoints(50)
         textField.setLeftPaddingPoints(64)
         textField.placeholder = "Password"
         textField.textColor = .black
@@ -199,8 +202,21 @@ class AutorizationViewController: UIViewController {
         navigationController?.pushViewController(RegistrationViewController(), animated: true)
     }
     
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == passwordTextField {
+            // Выполните действие для нажатия на кнопку Sign In
+            authenticateUser()
+        }
+        return true
+    }
+    
     private func addViewLayout() {
         view.addSubview(descriptionLabel)
+        
         view.addSubview(emailTextField)
         emailTextField.addSubview(emailTextFieldImage)
         view.addSubview(passwordTextField)
@@ -267,6 +283,10 @@ class AutorizationViewController: UIViewController {
             }()
         ]
         navigationController?.navigationBar.prefersLargeTitles = true
+        //MARK: - Hide keyboard
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     //MARK: - Hide back button text in next vc
     override func viewWillAppear(_ animated: Bool) {
