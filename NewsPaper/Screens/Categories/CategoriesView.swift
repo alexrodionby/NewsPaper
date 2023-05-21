@@ -41,8 +41,18 @@ class CategoriesView: UIView {
         button.setTitle("Next", for: .normal)
         button.backgroundColor = UIColor(named: "purplePrimary")
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(goToMain(sender:)), for: .touchUpInside)
         return button
     }()
+    
+    @objc func goToMain(sender: UIButton!){
+        let newViewController = TabBarViewController()
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = newViewController
+            window.makeKeyAndVisible()
+        }
+    }
     
     init(isOnboarding: Bool, header: String, info: String) {
         self.isOnboarding = isOnboarding

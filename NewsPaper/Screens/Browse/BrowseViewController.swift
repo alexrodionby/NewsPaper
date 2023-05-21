@@ -15,7 +15,16 @@ class BrowseViewController: UIViewController, UISearchBarDelegate, FavoriteButto
     var articleForFavoriteCategories: [Article] = []
     // Любимые категории надо загрузить из юзердефаулт
     var favoritCategories = ["sports", "technology"]
-    var favoriteArticles: [Article] = []
+    var favoriteArticles: [Article] = {
+        let favorite = LocalStorageService.shared.loadArticles()
+        var favToReturn = []
+        if favorite == nil {
+            favToReturn = []
+        } else {
+            favToReturn = favorite!
+        }
+       return favToReturn as! [Article]
+    }()
     
     private let mainLabel: UILabel = {
         let label = UILabel()
@@ -114,6 +123,11 @@ class BrowseViewController: UIViewController, UISearchBarDelegate, FavoriteButto
                 return style
             }()
         ]
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        LocalStorageService.shared.saveArticles(favoriteArticles)
     }
     
     private func setupView() {

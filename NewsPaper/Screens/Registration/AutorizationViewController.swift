@@ -142,13 +142,15 @@ class AutorizationViewController: UIViewController {
         }
     }
     private func showMainViewController() {
-        
-        let newViewController = TabBarViewController()
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController = newViewController
-            window.makeKeyAndVisible()
-        }
+        let categoriesView = CategoriesViewFabric.get(isOnboarding: true)
+        let categoriesVC = CategoriesViewController(categoriesView)
+        navigationController?.pushViewController(categoriesVC, animated: true)
+//        let newViewController = TabBarViewController()
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let window = windowScene.windows.first {
+//            window.rootViewController = newViewController
+//            window.makeKeyAndVisible()
+//        }
     }
     
     private func showMessage(_ message: String) {

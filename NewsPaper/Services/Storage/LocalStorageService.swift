@@ -39,6 +39,14 @@ final class LocalStorageService {
         load(key: categoriesKey)
     }
     
+    func saveArticles(_ articles: [Article]) {
+        save(articles, key: "articles")
+    }
+    
+    func loadArticles() -> [Article]? {
+        load(key: "articles")
+    }
+    
     // MARK: - private save / load methods
     
       private func save<T: Codable>(_ object: T, key: String) {
