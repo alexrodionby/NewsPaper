@@ -140,6 +140,9 @@ class AutorizationViewController: UIViewController {
                 strongSelf.showMainViewController()
             }
         }
+      //  LocalStorageService.shared.loggedOut(true)
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(true, forKey: "isFirstLaunch")
     }
     private func showMainViewController() {
         let categoriesView = CategoriesViewFabric.get(isOnboarding: true)

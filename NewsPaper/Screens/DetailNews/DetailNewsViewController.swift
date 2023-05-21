@@ -89,12 +89,25 @@ class DetailNewsViewController: UIViewController {
     }()
     
     private let favoritesButton: UIButton = {
-       let button = UIButton()
+     //  let button = UIButton()
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.tintColor = UIColor(named: "purplePrimary")
+        button.addTarget(nil, action: #selector(likeTapped), for: .touchUpInside)
+  //      return button
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage.init(systemName: "bookmark"), for: .normal)
-        button.tintColor = .white
+//        button.setBackgroundImage(UIImage.init(systemName: "bookmark"), for: .normal)
+//        button.tintColor = .white
+//        button.addTarget(nil, action: #selector(likeTapped), for: .touchUpInside)
         return button
     }()
+    
+    @objc func likeTapped() {
+        print("Нажали likeTapped в таблице")
+        // тут логика добавления в избранное + смена внешнего вида кнопки (заливка)
+         //   delegate?.didTapFavoriteButton2(in: self)
+        
+    }
     
     private func addView() {
         view.addSubview(topBackgroundImage)
@@ -181,9 +194,10 @@ class DetailNewsViewController: UIViewController {
 //
 //            }
 //        }
-        setupScreen(article: article)
         addView()
         layout()
+        setupScreen(article: article)
+
         
         //MARK: - Custom nav bar back button config
         let backButtonImage = UIImage(named: "backButtonWhite")

@@ -15,6 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        
+//        // Получение ссылки на хранилище пользовательских настроек
+//        let userDefaults = UserDefaults.standard
+//
+//        // Проверка флага первого включения
+//        if userDefaults.bool(forKey: "isFirstLaunch") {
+//            // Это первое включение программы
+//            print("Первое включение программы")
+//            
+//            // Устанавливаем флаг первого включения в false
+//            userDefaults.set(false, forKey: "isFirstLaunch")
+//            LocalStorageService.shared.loggedOut(false)
+//        } else {
+//            // Не первое включение программы
+//            print("Не первое включение программы")
+//        }
+
         return true
     }
 

@@ -14,7 +14,8 @@ class BrowseViewController: UIViewController, UISearchBarDelegate, FavoriteButto
     var articleForCategory: [Article] = []
     var articleForFavoriteCategories: [Article] = []
     // Любимые категории надо загрузить из юзердефаулт
-    var favoritCategories = ["sports", "technology"]
+   // var favoritCategories = ["sports", "technology"]
+    var favoritCategories = LocalStorageService.shared.loadCategories()
     var favoriteArticles: [Article] = {
         let favorite = LocalStorageService.shared.loadArticles()
         var favToReturn = []
@@ -85,7 +86,8 @@ class BrowseViewController: UIViewController, UISearchBarDelegate, FavoriteButto
         
         Task {
             do {
-                articleForFavoriteCategories = try await NewsService.shared.searchCategories(categories: favoritCategories).articles ?? []
+                print("Избранное ищет по ", favoritCategories)
+                articleForFavoriteCategories = try await NewsService.shared.searchCategories(categories: favoritCategories ?? ["sports"]).articles ?? []
                 mainTableView.reloadData()
             } catch {
                 print("Error =", error.localizedDescription)

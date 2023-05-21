@@ -15,13 +15,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
     //   let navigationController = UINavigationController(rootViewController: BookmarksViewController())
+        let userDefaults = UserDefaults.standard
+        print(userDefaults.bool(forKey: "isFirstLaunch"))
         var controller = UIViewController()
-        if LocalStorageService.shared.loggedIn() == false {
-            controller = OnboardingViewController()
+        if userDefaults.bool(forKey: "isFirstLaunch") == false {
+            controller = UINavigationController(rootViewController: OnboardingViewController())
         } else {
             controller = TabBarViewController()
         }
-        window?.rootViewController = TabBarViewController()
+        window?.rootViewController = controller
         window?.makeKeyAndVisible()
     }
 }
